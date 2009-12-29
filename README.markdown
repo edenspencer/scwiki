@@ -10,5 +10,5 @@ You'll need  to setup some directory overrides
 
 `<Directory /PATH/TO/Wiki>
     Options FollowSymLinks ExecCGI
-    AllowOverride Options FileInfo
+    AllowOverride Options FileInfo Indexes
 </Directory>`

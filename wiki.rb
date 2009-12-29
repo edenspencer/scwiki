@@ -6,7 +6,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[lib pages]))
 class Wiki
   def initialize
     script, @action, @page = ENV['PATH_INFO'].split('/')
-    self.send(@action) 
+    self.send(@action)
   end
   
   def show
