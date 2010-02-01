@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 require "cgi"
-require File.expand_path(File.join(File.dirname(__FILE__), %w[lib pages]))
+Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
+#require File.expand_path(File.join(File.dirname(__FILE__), %w[lib pages]))
 
 class Wiki
   def initialize

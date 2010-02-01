@@ -1,10 +1,12 @@
 class Page
   attr_accessor :title, :content
-  
-  def save
-    f = File.new("pages/#{@title}", 'w+')
-    f.puts @title
-    f.close
+
+  def initialize(title, content)
+    @title, @content = title, content
+  end
+
+  def ==(other)
+    self.title == other.title && self.content == other.content
   end
 end
 
