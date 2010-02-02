@@ -22,12 +22,10 @@ class DefaultPage < Page
 end
 
 class PageNotFound < Page
-  def content
-  "<h1>This page doesn't exist...</h1>
+  def initialize
+    @content = "<h1>This page doesn't exist...</h1>
    <p><a href='new'>why not create it</a></p>"
-  end
-
-  def title
-    "Page Not Found - Why not create it?" 
+  
+    @title = "Page Not Found - Why not create it?" 
   end
 end
