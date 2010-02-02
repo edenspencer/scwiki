@@ -5,6 +5,7 @@ class PageStore
     f = File.new(File.join(FILE_PATH, title_to_snake_case(page.title)), 'w+')
     f.print page.content
     f.close
+    page
   end
 
   def self.read(title)

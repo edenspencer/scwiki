@@ -2,12 +2,12 @@ test_lib = File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. .. Crafts
 
 require test_lib
 include NanoTest
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib pages])) 
 
+require 'open-uri'
+
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page])) 
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_store])) 
 
 def new_page
-   @page = Page.new("SavedTitle","This is my content")
+   @page = PageStore.save(Page.new("SavedTitle","This is my content"))
 end
-
-

@@ -1,9 +1,4 @@
-test_lib = File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. .. Craftsmanship NanoTest lib nanotest]))
-
-require test_lib
-include NanoTest
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_store])) 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib pages])) 
+require File.expand_path(File.join(File.dirname(__FILE__), %w[test_helper])) 
 
 class PageStoreTest < NanoTest::TestCase
 

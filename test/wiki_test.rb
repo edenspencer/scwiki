@@ -1,13 +1,13 @@
-#test_lib = File.expand_path(File.join(File.dirname(__FILE__), %w[.. .. .. Craftsmanship NanoTest lib nanotest]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[test_helper])) 
 
-#require 'open-uri'
-#require test_lib
-#include NanoTest
-#require File.expand_path(File.join(File.dirname(__FILE__), %w[.. wiki]))
+ENV['PATH_INFO'] = "wiki.rb/show/index"
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. wiki]))
 
-#def test_wiki_blank_state_is_accessible_from_the_web
-#  page = open('http://wiki.local/wiki.rb/show/index')
-#  assert_match(/Action = Show, Page = index/, page.string)
-#end
+class WikiTest < NanoTest::TestCase
+  def test_wiki_blank_state_is_accessible_from_the_web
+    page = open('http://wiki.local/show/index')
+    assert_match(/index/, page.string)
+  end
+end
 
-#NanoTest::Runner.run_tests
+NanoTest::Runner.run_tests

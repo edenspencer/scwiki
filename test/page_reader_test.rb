@@ -3,7 +3,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[test_helper]))
 class PageStoreTest < NanoTest::TestCase
 
   def test_saved_pages_are_readable
-    PageStore.save(new_page)
+    new_page
     begin
       read_page = PageStore.read('SavedTitle')
       assert_equal(@page, read_page, "Pages (Page, Read Page) are not equal") 
