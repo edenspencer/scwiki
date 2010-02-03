@@ -16,8 +16,18 @@ class PageStoreTest < NanoTest::TestCase
     page_with_whitespace_in_title = Page.new('My Title', 'My Content')
     PageStore.save(page_with_whitespace_in_title)
     assert_true(File.exists?(File.join(File.dirname(__FILE__), %w[.. pages my_title])),  "Whitespace in title is replaced" )
+    
+  end
+  
+  def teardown
+    files = ["my_title", "savedtitle"]
+    files.each do |f|
+      file = (File.join(File.dirname(__FILE__), %w[.. pages], f))
+      File.delete(file) if File.exists?(file)
+    end
   end
 end
 
+puts "---------------\nPageStore (Saver) Tests\n---------------"
 NanoTest::Runner.run_tests
 

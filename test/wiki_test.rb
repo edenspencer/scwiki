@@ -10,4 +10,5 @@ class WikiTest < NanoTest::TestCase
   end
 end
 
+puts "---------------\nWiki Tests\n---------------"
 NanoTest::Runner.run_tests

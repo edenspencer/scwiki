@@ -10,7 +10,7 @@ class Page
   end
 end
 
-class DefaultPage < Page
+class HomePage < Page
   def content
   "<h1>Please create a first page</h1>
    <p><a href='new'>Create a New Page</a></p>"
@@ -29,3 +29,4 @@ class PageNotFound < Page
     @title = "Page Not Found - Why not create it?" 
   end
 end
+

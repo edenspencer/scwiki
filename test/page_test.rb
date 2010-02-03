@@ -29,10 +29,8 @@ class PagesTest < NanoTest::TestCase
    #assert_true(!p1.eql?(p2))
    #assert_true(p1.hash != p2.hash)
  end
-
- def teardown
- end
 end
+puts "---------------\nPage Tests\n---------------"
 
 NanoTest::Runner.run_tests
 
