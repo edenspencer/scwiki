@@ -12,7 +12,7 @@ class PageStore
     if File.exists?(File.join(FILE_PATH, title_to_snake_case(title)))
       Page.new(title, IO.read(File.join(FILE_PATH, title_to_snake_case(title))))
     else
-      PageNotFound.new
+      PageNotFound.new(title)
     end
   end
 

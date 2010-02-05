@@ -8,25 +8,16 @@ class Page
   def ==(other)
     self.title == other.title && self.content == other.content
   end
-end
-
-class HomePage < Page
-  def content
-  "<h1>Please create a first page</h1>
-   <p><a href='new'>Create a New Page</a></p>"
-  end
-
-  def title
-    'No pages in the wiki - Why not create one?'
-  end
+  
+  def title_to_human(title)
+     @title = title.split(/(?=[A-Z])/).join(" ")
+   end
 end
 
 class PageNotFound < Page
-  def initialize
-    @content = "<h1>This page doesn't exist...</h1>
-   <p><a href='new'>why not create it</a></p>"
-  
-    @title = "Page Not Found - Why not create it?" 
+  def initialize(title)
+    title_to_human(title)
+    @content = "<h1>This page doesn't exist...</h1>\n<form action=\"/new/#{@title}\" method=\"post\"><fieldset>\n<legend>Why Not Create it?</legend>\n<p><label for 'title'>Title</label><br/><input  size='120' type=\"text\" value=\"#{@title}\"></p>\n<p><label for 'content'>Content</label><br/><textarea cols='120' rows='10' type=\"text\" id=\"textarea\"></textarea></p></fieldset><input type=\"submit\"><\/form>"
   end
 end
 

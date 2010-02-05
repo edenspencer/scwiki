@@ -4,22 +4,23 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_render
 class PageRendererTest < NanoTest::TestCase
   def test_page_renderer_returns_head_content
     new_page
-    ph = PageRenderer.render(@page)
-    assert_match(ph, /Content-Type: text\/html\n<html><head><title>SavedTitle<\/title><\/head>/)
+    page_header = PageRenderer.render(@page)
+    assert_match(/Content-Type: text\/html.*<html>.*<head>/m, page_header, "should match headers")
   end
   
   def test_page_renderer_returns_body_content
     new_page
-    pb = PageRenderer.render(@page)
-    assert_match(pb, /<body>This is my content<\/body><\/html>/)
+    page_body = PageRenderer.render(@page)
+    assert_match(/This is my content/, page_body, 'Should Match Content')
   end
   
   def test_page_renders_edit_content_if_action_is_edit
-    new_page
-    pe = PageRenderer.render(@page, true)
-    assert_match(pe, /<body><form action="edit">This is my content<\/form><\/body><\/html>/, "Should have edit tag")
+    @page = PageNotFound.new('TestPage')
+    page_edit = PageRenderer.render(@page)
+    assert_match(/<form.*<input.*<\/form>/m, page_edit, "Should have a form tag")
+  end
+  
+  def teardown
+    File.delete((File.join(File.dirname(__FILE__), %w[.. pages savedtitle]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. pages savedtitle])))
   end
 end
-
-puts "---------------\nPageRenderer Tests\n---------------"
-NanoTest::Runner.run_tests

@@ -12,12 +12,14 @@ class PageStoreTest < NanoTest::TestCase
     assert_match(read_page.content, /This page doesn't exist/, "This Page Shouldn't Exist")
   end
   
+  def test_camelcased_title_to_human_case
+    @page = PageNotFound.new("SavedTitle")
+    assert_equal(@page.title, 'Saved Title', 'Blah Blah, BLAH!')
+  end
+  
   def teardown
     file = File.join(File.dirname(__FILE__), %w[.. pages savedtitle])
     File.delete(file) if File.exists?(file)
   end
 end
-
-puts "---------------\nPageStore (Reader) Tests\n---------------"
-NanoTest::Runner.run_tests
 

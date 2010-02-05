@@ -1,28 +1,27 @@
 class PageRenderer
-  def self.render(page, edit_mode=false)
+  def self.render(page)
     @page = page
-    @edit_mode = edit_mode
     html
   end
   
   private
   def self.html
-    "#{head}#{body}#{foot}"
+    "#{head}\n#{body}\n#{foot}"
   end
   
   def self.head
-    "Content-Type: text/html\n<html><head><title>#{@page.title}</title></head>"
+    "Content-Type: text/html\n\n<html>\n<head>\n<title>#{@page.title}</title>\n#{styles}\n</head>\n"
+  end
+  
+  def self.styles
+    "<style>* {font-family: sans-serif;}</style>"
   end
   
   def self.body
-    if @edit_mode
-      "<body><form action=\"edit\">#{@page.content}</form>"
-    else
-      "<body>#{@page.content}"
-    end
+    "<body>\n#{@page.content}\n"
   end
   
   def self.foot
-    "</body></html>"
+    "<\/body>\n<\/html>"
   end
 end

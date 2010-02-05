@@ -5,10 +5,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. wiki]))
 
 class WikiTest < NanoTest::TestCase
   def test_wiki_blank_state_is_accessible_from_the_web
+    page = open('http://wiki.local/show/homepage')
+    assert_match(/homepage/, page.string)
+  end
+  
+  def test_wiki_checks_existence_of_file_and_redirects_accordingly
     page = open('http://wiki.local/show/index')
-    assert_match(/index/, page.string)
+    assert_match(/form/, page.string, "Page Should Contain an Edit form is searched page doesn't exist")
   end
 end
-
-puts "---------------\nWiki Tests\n---------------"
-NanoTest::Runner.run_tests

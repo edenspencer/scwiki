@@ -30,7 +30,3 @@ class PagesTest < NanoTest::TestCase
    #assert_true(p1.hash != p2.hash)
  end
 end
-puts "---------------\nPage Tests\n---------------"
-
-NanoTest::Runner.run_tests
-
