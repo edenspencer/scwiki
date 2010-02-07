@@ -1,4 +1,5 @@
 class PageStore
+  #pass in to OBJECT! as a parameter (make this an object first!)
   FILE_PATH = File.expand_path('pages')
   
   def self.save(page)

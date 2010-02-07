@@ -13,4 +13,8 @@ class WikiTest < NanoTest::TestCase
     page = open('http://wiki.local/show/index')
     assert_match(/form/, page.string, "Page Should Contain an Edit form is searched page doesn't exist")
   end
+  
+  def wiki_passes_params_to_a_controller
+      
+  end
 end
