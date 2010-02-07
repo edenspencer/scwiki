@@ -14,16 +14,20 @@ class HelloWorldServlet < HTTPServlet::AbstractServlet
   end
   
   def do_stuff_with(request)
-    return 200, "text/plain", "you got the page"
+    @page = request.path.split("/")
+    @page.shift
+    @page
+    @type = request.class
+    return 200, "text/plain", "you got the path [#{@page.join(", ")}] #{@page.class} #{@type}"
   end
   end
   
-  def initialize(port_number, page_directory)
+  def initialize(port_number, pages_directory)
     @server = WEBrick::HTTPServer.new(:Port => port_number)
-    @server.mount('/helloworld', HelloWorldServlet, page_directory)
+    @server.mount('/helloworld', HelloWorldServlet, pages_directory)
     #@server.mount('/edit/', EditWikiPageServlet, page_directory)
     #@server.mount('/', WikiPageServlet, page_directory)
-    trap('INT') { stop }
+    trap("INT") { @server.stop }
   end
  
   def start
@@ -36,5 +40,5 @@ class HelloWorldServlet < HTTPServlet::AbstractServlet
 end
 
 
-WebServer.new(8080, 'pages').start
 
+#WebServer.new(8080, 'pages').start

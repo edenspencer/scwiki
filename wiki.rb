@@ -36,4 +36,5 @@ class Wiki
   end
 end
 
+#WebServer.new(8080, 'pages').start
 Wiki.new
