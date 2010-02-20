@@ -1,7 +1,0 @@
-Options +ExecCGI +FollowSymlinks
-
-RewriteEngine on
-RewriteBase /
-RewriteRule ^$ /show/homepage [R]
-RewriteRule ^([^/.]+)/([^/.]+)/?$ wiki.rb/$1/$2
-

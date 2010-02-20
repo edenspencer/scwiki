@@ -1,24 +1,24 @@
+require File.expand_path(File.join(File.dirname(__FILE__), 'string_extras'))
+include StringExtras
+
 class PageStore
-  #pass in to OBJECT! as a parameter (make this an object first!)
-  FILE_PATH = File.expand_path('pages')
+  @@file_path = File.expand_path('pages')
   
   def self.save(page)
-    f = File.new(File.join(FILE_PATH, title_to_snake_case(page.title)), 'w+')
+    f = File.new(File.join(@@file_path, StringExtras::title_to_snake_case(page.title)), 'w+')
     f.print page.content
     f.close
     page
   end
 
   def self.read(title)
-    if File.exists?(File.join(FILE_PATH, title_to_snake_case(title)))
-      Page.new(title, IO.read(File.join(FILE_PATH, title_to_snake_case(title))))
+    f = File.join(@@file_path, StringExtras::snake_case_from_title(title))
+    
+    if File.exists?(f)
+      p = Page.new(title, IO.read(f))
     else
+      #Raise An Error Here and Catch it further up?
       PageNotFound.new(title)
     end
-  end
-
-  private
-  def self.title_to_snake_case(title)
-    title.gsub(" ", "_" ).downcase
-  end
+  end  
 end

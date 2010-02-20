@@ -17,7 +17,7 @@ end
 class PageNotFound < Page
   def initialize(title)
     title_to_human(title)
-    @content = "<h1>This page doesn't exist...</h1>\n<form action=\"/new/#{@title}\" method=\"post\"><fieldset>\n<legend>Why Not Create it?</legend>\n<p><label for 'title'>Title</label><br/><input  size='120' type=\"text\" value=\"#{@title}\"></p>\n<p><label for 'content'>Content</label><br/><textarea cols='120' rows='10' type=\"text\" id=\"textarea\"></textarea></p></fieldset><input type=\"submit\"><\/form>"
+    @content = "<h1>This page doesn't exist...</h1>\n<form action=\"/#{@title}/new/\" method=\"post\"><fieldset>\n<legend>Why Not Create it?</legend>\n<p><label for 'title'>Title</label><br/><input  size='120' type=\"text\" value=\"#{@title}\"></p>\n<p><label for 'content'>Content</label><br/><textarea cols='120' rows='10' type=\"text\" id=\"textarea\"></textarea></p></fieldset><input type=\"submit\"><\/form>"
   end
 end
 

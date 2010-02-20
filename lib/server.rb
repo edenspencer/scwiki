@@ -1,32 +1,14 @@
+#!/usr/bin/env ruby
+
 require 'webrick'
+Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
-class WebServer
+class WebServer  
   include WEBrick
-
-class HelloWorldServlet < HTTPServlet::AbstractServlet
-  
-  def do_GET(request, response)
-    status, content_type, body = do_stuff_with(request)
-    
-    response.status = status
-    response['Content-Type'] = content_type
-    response.body = body
-  end
-  
-  def do_stuff_with(request)
-    @page = request.path.split("/")
-    @page.shift
-    @page
-    @type = request.class
-    return 200, "text/plain", "you got the path [#{@page.join(", ")}] #{@page.class} #{@type}"
-  end
-  end
-  
-  def initialize(port_number, pages_directory)
+  def initialize(port_number, pages_directory, controller=Wiki)
+    print "\n=====[ STARTING WEBrick SERVER ]=====\n"
     @server = WEBrick::HTTPServer.new(:Port => port_number)
-    @server.mount('/helloworld', HelloWorldServlet, pages_directory)
-    #@server.mount('/edit/', EditWikiPageServlet, page_directory)
-    #@server.mount('/', WikiPageServlet, page_directory)
+    @server.mount('/', WikiServlet, pages_directory, controller)
     trap("INT") { @server.stop }
   end
  
@@ -39,6 +21,20 @@ class HelloWorldServlet < HTTPServlet::AbstractServlet
   end
 end
 
+class WikiServlet < WEBrick::HTTPServlet::AbstractServlet
+  
+  def initialize(server, pages_directory, controller)
+    super(server)
+    
+    @controller = controller
+  end
+  
+  def do_GET(request, response)
+    status, content_type, body = @controller.new.process_request(request)
+    
+    response.status = status
+    response['Content-Type'] = content_type
+    response.body = body
+  end
+end
 
-
-#WebServer.new(8080, 'pages').start

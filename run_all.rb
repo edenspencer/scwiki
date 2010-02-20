@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 Dir["test/*.rb"].each {|file| require file}
 
 def teardown
