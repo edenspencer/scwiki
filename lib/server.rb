@@ -5,8 +5,8 @@ Dir[File.dirname(__FILE__) + '/*.rb'].each {|file| require file }
 
 class WebServer  
   include WEBrick
-  def initialize(port_number, pages_directory, controller=Wiki)
-    print "\n=====[ STARTING WEBrick SERVER ]=====\n"
+  def initialize(port_number, pages_directory, controller=PageController)
+    print "\n-=[ STARTING WEBrick SERVER ]=-\n"
     @server = WEBrick::HTTPServer.new(:Port => port_number)
     @server.mount('/', WikiServlet, pages_directory, controller)
     trap("INT") { @server.stop }

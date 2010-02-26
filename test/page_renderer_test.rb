@@ -1,5 +1,4 @@
 require File.expand_path(File.join(File.dirname(__FILE__), %w[test_helper])) 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_renderer]))
 
 class PageRendererTest < NanoTest::TestCase
   def test_page_renderer_returns_head_content

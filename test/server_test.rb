@@ -15,7 +15,7 @@ class ServerTest < NanoTest::TestCase
   end
   
   def test_server_shows_helloworld
-    print "\n==========[ starting helloworld test server ]=========\n"
+    print "\n-=[ starting helloworld test server ]=-\n"
     Thread.new { @server.start }
     page = open('http://0.0.0.0:8080/helloworld')
     assert_match(/HERE> GET \/helloworld/, page.string)
@@ -23,7 +23,7 @@ class ServerTest < NanoTest::TestCase
   end
   
   def test_server_routes_depending_on_last_parameter
-    print "\n==========[ starting index edit test server ]=========\n"
+    print "\n-=[ starting index edit test server ]=-\n"
     Thread.new { @server.start }
     page = open('http://0.0.0.0:8080/index/edit')
     assert_match(/edit/, page.string)

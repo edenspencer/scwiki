@@ -8,7 +8,7 @@ class PageStoreTest < NanoTest::TestCase
   end
 
   def test_pages_with_content_are_saveable
-    content = File.read(File.join(File.dirname(__FILE__), %w[.. pages savedtitle]))
+    content = File.read(File.join(File.dirname(__FILE__), %w[.. pages saved_title]))
     assert_equal(@page.content, content, "Pages with content are saveable")
   end
 
