@@ -5,12 +5,9 @@ include NanoTest
 
 require 'open-uri'
 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page])) 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_store])) 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_renderer])) 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_controller]))
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib server]))
+#require lib directory
+Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each {|file| require file }
 
 def new_page
-   @page = PageStore.save(Page.new("SavedTitle","This is my content"))
+   @page = PageStore.new('test_pages').save(Page.new("SavedTitle","This is my content"))
 end

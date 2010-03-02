@@ -12,52 +12,49 @@ class ServerTest < NanoTest::TestCase
 
   def setup
     @server = WebServer.new(8080, 'test_pages', MockController)
+    print "\n-=[ starting test server ]=-\n"
+    Thread.new { @server.start }
   end
   
   def test_server_shows_helloworld
-    print "\n-=[ starting helloworld test server ]=-\n"
-    Thread.new { @server.start }
     page = open('http://0.0.0.0:8080/helloworld')
     assert_match(/HERE> GET \/helloworld/, page.string)
-    @server.stop
   end
   
   def test_server_routes_depending_on_last_parameter
-    print "\n-=[ starting index edit test server ]=-\n"
-    Thread.new { @server.start }
     page = open('http://0.0.0.0:8080/index/edit')
     assert_match(/edit/, page.string)
-    @server.stop
   end
-  #
-  #def test_server_will_not_route_to_non_exisitent_actions
-  #  page = open('http://0.0.0.0:8080/index/mouse')
-  #  assert_match(/IndexMouse/, page.string, "should route mouse to show as not in routable_actions")
-  #end
-  #
-  #def test_server_connects_delete
-  #  page = open('http://0.0.0.0:8080/index/edit')
-  #  assert_match(/edit/, page.string, "should match delete")
-  #end
-  #
-  #def test_server_connects_delete
-  #  page = open('http://0.0.0.0:8080/index/delete')
-  #  assert_match(/delete/, page.string, "should match delete")
-  #end
-  #
-  #def test_server_strips_extra_path_parameters
-  #  page = open('http://0.0.0.0:8080/mickey/mouse/lives_in_a_house')
-  #  assert_match(/MickeyMouseLives_in_a_house/, page.string, "should match MickeyMouseLives_in_a_house")
-  #end
-  #
-  #def test_server_shows_pages_that_exist
-  #  @page = Page.new('SavedTitle', 'This is my content')
-  #  PageStore.save(@page)
-  #  page = open('http://0.0.0.0:8080/SavedTitle')
-  #  assert_match(/This is my content/, page.string, "should show an existing page")
-  #end
+  
+  def test_server_will_not_route_to_non_exisitent_actions
+    page = open('http://0.0.0.0:8080/index/mouse')
+    assert_match(/IndexMouse/, page.string, "should route mouse to show as not in routable_actions")
+  end
+  
+  def test_server_connects_delete
+    page = open('http://0.0.0.0:8080/index/edit')
+    assert_match(/edit/, page.string, "should match delete")
+  end
+  
+  def test_server_connects_delete
+    page = open('http://0.0.0.0:8080/index/delete')
+    assert_match(/delete/, page.string, "should match delete")
+  end
+  
+  def test_server_strips_extra_path_parameters
+    page = open('http://0.0.0.0:8080/mickey/mouse/lives_in_a_house')
+    assert_match(/MickeyMouseLives_in_a_house/, page.string, "should match MickeyMouseLives_in_a_house")
+  end
+  
+  def test_server_shows_pages_that_exist
+    @page = Page.new('SavedTitle', 'This is my content')
+    PageStore.save(@page)
+    page = open('http://0.0.0.0:8080/SavedTitle')
+    assert_match(/This is my content/, page.string, "should show an existing page")
+  end
   
   def teardown
-    #@server.stop    
+    print "\n-=[ stopping test server ]=-\n"
+    @server.stop    
   end
 end

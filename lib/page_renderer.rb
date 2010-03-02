@@ -10,7 +10,7 @@ class PageRenderer
   end
   
   def self.head
-    "Content-Type: text/html\n\n<html>\n<head>\n<title>#{@page.title}</title>\n#{styles}\n</head>\n"
+    "<html>\n<head>\n<title>#{@page.title}</title>\n#{styles}\n</head>\n"
   end
   
   def self.styles

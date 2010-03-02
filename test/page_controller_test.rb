@@ -14,11 +14,14 @@ class PageControllerTest < NanoTest::TestCase
   end  
   
   def test_PageController_blank_state_is_accessible_from_the_web
-    page = open('http://0.0.0.0:8080/index')
+    page = open('http://0.0.0.0:8080/index', MockController)
     assert_match(/index/, page.string)
   end
   
+  
+  
   def teardown
-    @server.stop    
+    @server.stop
+    print "\n-=[ stopped test server ]=-\n"
   end
 end

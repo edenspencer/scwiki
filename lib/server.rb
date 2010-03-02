@@ -36,5 +36,13 @@ class WikiServlet < WEBrick::HTTPServlet::AbstractServlet
     response['Content-Type'] = content_type
     response.body = body
   end
+  
+  def do_POST(request, response)
+      status, content_type, body = @controller.new.create(request)
+
+      response.status = status
+      response['Content-Type'] = content_type
+      response.body = body
+  end
 end
 

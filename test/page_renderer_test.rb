@@ -4,7 +4,7 @@ class PageRendererTest < NanoTest::TestCase
   def test_page_renderer_returns_head_content
     new_page
     page_header = PageRenderer.render(@page)
-    assert_match(/Content-Type: text\/html.*<html>.*<head>/m, page_header, "should match headers")
+    assert_match(/<head>/m, page_header, "should match headers")
   end
   
   def test_page_renderer_returns_body_content
