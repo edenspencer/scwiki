@@ -1,5 +1,5 @@
 class Page
-  attr_accessor :title, :content
+  attr_accessor :title, :content, :action
 
   def initialize(title, content)
     @title, @content = title, content

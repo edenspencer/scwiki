@@ -14,12 +14,20 @@ class PageRendererTest < NanoTest::TestCase
   end
   
   def test_page_renders_edit_content_if_action_is_edit
-    @page = PageNotFound.new('TestPage')
+    new_page
+    @page.action = :edit
     page_edit = PageRenderer.render(@page)
     assert_match(/<form.*<input.*<\/form>/m, page_edit, "Should have a form tag")
   end
   
+  def test_page_renders_links_correctly
+    new_page
+    @page.action = :show
+    page_link = PageRenderer.render(@page)
+    assert_match(/<a href='http:\/\/www.domain.com'>MyLink<\/a>/, page_link, 'Should contain a link')
+  end
+  
   def teardown
-    File.delete((File.join(File.dirname(__FILE__), %w[.. pages savedtitle]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. pages savedtitle])))
+    File.delete((File.join(File.dirname(__FILE__), %w[.. test_pages saved_title]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. test_pages saved_title])))
   end
 end

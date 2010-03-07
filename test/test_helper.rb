@@ -9,5 +9,15 @@ require 'open-uri'
 Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each {|file| require file }
 
 def new_page
-   @page = PageStore.new('test_pages').save(Page.new("SavedTitle","This is my content"))
+   @page = PageStore.new('test_pages').save(Page.new("SavedTitle","This is my content [http://www.domain.com](MyLink)"))
+end
+
+#Make Private Methods Public (For testing) thanks to Jay Fields!
+class Class
+  def publicize_methods
+    saved_private_instance_methods = self.private_instance_methods
+    self.class_eval { public *saved_private_instance_methods }
+    yield
+    self.class_eval { private *saved_private_instance_methods }
+  end
 end

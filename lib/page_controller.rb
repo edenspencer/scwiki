@@ -1,5 +1,7 @@
 class PageController
-  ROUTABLE_ACTIONS = [:create, :edit, :delete]
+  attr_accessor :page_slug, :page
+  
+  ROUTABLE_ACTIONS = [:create, :edit, :delete, :update]
   
   def process_request(request)
      @request = request
@@ -10,27 +12,37 @@ class PageController
     @page_store = PageStore.new
     @page = (Page.new(request.query['title'],request.query['content']))
     @page_store.save(@page)
-    return 303, "text/html", PageRenderer.render(@page)
+    return 200, "text/html", PageRenderer.render(@page), WEBrick::HTTPStatus::SeeOther, "/#{@page.title.to_snake_case}"
+  end
+  
+  def update(request)
+    @page_store = PageStore.new
+    @page = (Page.new(request.query['title'],request.query['content']))
+    @page_store.save(@page)
+    return 300, "text/html", PageRenderer.render(@page), WEBrick::HTTPStatus::SeeOther, "/#{@page.title.to_snake_case}"
   end
    
   def show(page)
-    return 200, "text/html", PageRenderer.render(@page_content)
+    return 200, "text/html", PageRenderer.render(@page_content), false
   end
   
   def edit(page)
-    return 200, "text/html", PageRenderer.render(@page_content)
+    return 200, "text/html", PageRenderer.render(@page_content), false
   end
   
   def delete(page)
-    return 200, "text/plain", "action: delete"
+    @page = page
+    PageStore.delete(page)
+    find_or_create_page
+    return 400, "text/html", PageRenderer.render(@page_content)
   end
   
   
   private
   def setup_response(request)
     
-    @page = request.path.split("/")
-    @page.shift #drops the first blank section
+    @page_slug = request.path.split("/")
+    @page_slug.shift #drops the first blank section
     
     set_action
     concat_extra_path_params
@@ -39,11 +51,16 @@ class PageController
   end
   
   def set_action
-    potential_action = @page[-1].to_sym
+    if @page_slug[-1] == nil
+      potential_action = :show
+      @page_slug = ["index"]
+    else
+      potential_action = @page_slug[-1].to_sym
+    end
         
-    if @page.size >= 1 && ROUTABLE_ACTIONS.include?(potential_action)
-      @page.pop
-        @action = potential_action
+    if @page_slug.size >= 1 && ROUTABLE_ACTIONS.include?(potential_action)
+      @page_slug.pop
+      @action = potential_action
     else
       @action = :show
     end
@@ -52,10 +69,11 @@ class PageController
   def concat_extra_path_params
      # you can't just use capitalize, or it wipes out TitleCases
      # so check for TitleCase
-     @page = @page.map!{|x| x =~ /[A-Z]/ ? x : x.capitalize! }.join
+     @page = @page_slug.map!{|x| x =~ /[A-Z]/ ? x : x.capitalize! }.join
   end
   
   def find_or_create_page
     @page_content = PageStore.new.read(@page)
+    @page_content.action = @action
   end
 end

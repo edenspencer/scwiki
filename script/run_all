@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+Dir["test/*.rb"].each {|file| require file}
+
+def teardown
+  ["my_title", "saved_title"].each do |f|
+    File.delete((File.join(File.dirname(__FILE__), %w[.. test_pages], f))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. test_pages], f)))
+  end
+end
