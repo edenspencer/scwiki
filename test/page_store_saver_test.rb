@@ -19,18 +19,7 @@ class PageStoreTest < NanoTest::TestCase
     assert_true(File.exists?(File.join(File.dirname(__FILE__), %w[.. test_pages my_title])),  "Whitespace in title is replaced" )
   end
   
-  def test_saving_should_add_edit_link_to_page
-    content = File.read(File.join(File.dirname(__FILE__), %w[.. test_pages saved_title]))
-    assert_match(/[\/SavedTitle\/edit](edit)/,content, "Should contain an edit link")
+  def teardown
+    File.delete((File.join(File.dirname(__FILE__), %w[.. test_pages my_title]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. test_pages my_title])))
   end
-  
-  def test_saving_should_add_delete_link_to_page
-    content = File.read(File.join(File.dirname(__FILE__), %w[.. test_pages saved_title]))
-    assert_match(/[\/SavedTitle\/delete](delete)/,content, "Should contain an edit link")
-  end
-  
-  
-  #def teardown
-  #  File.delete((File.join(File.dirname(__FILE__), %w[.. test_pages my_title]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. test_pages my_title])))
-  #end
 end

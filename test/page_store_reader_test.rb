@@ -4,7 +4,7 @@ class PageStoreTest < NanoTest::TestCase
   def test_saved_pages_are_readable
     new_page
     read_page = PageStore.new('test_pages').read('SavedTitle')
-    assert_equal("This is my content [http://www.domain.com](MyLink)\n\n<div class='actions'>[/SavedTitle/edit/](edit) | [/SavedTitle/delete/](delete)</div>", read_page.content, "Pages (Page, Read Page) are not equal") 
+    assert_equal("This is my content [http://www.domain.com](MyLink)", read_page.content, "Pages (Page, Read Page) are not equal") 
   end
   
   def test_file_not_found_triggers_not_found_page
@@ -17,9 +17,9 @@ class PageStoreTest < NanoTest::TestCase
     assert_equal(@page.title, 'Saved Title', 'Test Camelcase to Human')
   end
   
-  #def teardown
-  #  file = File.join(File.dirname(__FILE__), %w[.. pages saved_title])
-  #  File.delete(file) if File.exists?(file)
-  #end
+  def teardown
+    file = File.join(File.dirname(__FILE__), %w[.. pages saved_title])
+    File.delete(file) if File.exists?(file)
+  end
 end
 

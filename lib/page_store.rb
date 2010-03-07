@@ -7,7 +7,7 @@ class PageStore
   
   def save(page)
     f = File.new(File.join(@file_path, page.title.to_snake_case), 'w+')
-    f.print page.content + "\n\n<div class='actions'>[/#{page.title}/edit/](edit) | [/#{page.title}/delete/](delete)</div>"
+    f.print page.content
     f.close
     page
   end
