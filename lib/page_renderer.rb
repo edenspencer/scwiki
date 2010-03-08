@@ -33,7 +33,7 @@ class PageRenderer
   end
   
   def self.styles
-    "<style>* {font-family: sans-serif;} body {background-color: #DDD;} #scwiki {width: 760px; padding: 0 20px; margin: 0 auto; color: #666;} .content {width: 758px; padding: 0 20px 20px 20px; margin: 10px auto; background-color: white; border:1px solid #BBB;} .actions { width: 758px; padding: 10px 20px; margin: 0 auto; background-color: #DFDFDF; border:1px solid #BBB;margin-top: 10px} fieldset {border:1px solid #BBB;} </style>"
+    "<style>* {font-family: sans-serif;} body {background-color: #DDD;} #scwiki {width: 760px; padding: 0 20px; margin: 0 auto; color: #666;} .content {width: 758px; padding: 0 20px 20px 20px; margin: 10px auto; background-color: white; border:1px solid #BBB;} .actions { width: 758px; padding: 10px 20px; margin: 0 auto; background-color: #DFDFDF; border-bottom:1px solid #BBB;margin-top: 10px} fieldset {border:1px solid #BBB;} </style>"
   end
   
   def self.body

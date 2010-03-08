@@ -1,15 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), %w[test_helper])) 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib server]))
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib page_store]))
-
-class StubController  
-  def process_request(url)
-    return 200, 'text/plain', "HERE> #{url}"
-  end
-end
 
 class ServerTest < NanoTest::TestCase  
-
   def setup
     @server = WebServer.new(8080, 'test_pages')
     print "\n-=[ starting test server ]=-\n"
@@ -44,6 +35,7 @@ class ServerTest < NanoTest::TestCase
   
   def teardown
     print "\n-=[ stopping test server ]=-\n"
-    @server.stop    
+    @server.stop
+        File.delete((File.join(File.dirname(__FILE__), %w[.. pages saved_title]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. pages saved_title])))
   end
 end
