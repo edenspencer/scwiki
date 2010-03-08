@@ -21,5 +21,6 @@ class PageStoreTest < NanoTest::TestCase
   
   def teardown
     File.delete((File.join(File.dirname(__FILE__), %w[.. test_pages my_title]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. test_pages my_title])))
+    File.delete((File.join(File.dirname(__FILE__), %w[.. test_pages saved_title]))) if File.exists?((File.join(File.dirname(__FILE__), %w[.. test_pages saved_title])))
   end
 end
