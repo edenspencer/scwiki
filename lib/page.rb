@@ -1,4 +1,5 @@
 class Page
+  #action required to display in page renderer
   attr_accessor :title, :content, :action
 
   def initialize(title, content)

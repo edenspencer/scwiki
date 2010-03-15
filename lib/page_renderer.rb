@@ -12,6 +12,8 @@ class PageRenderer
       pre_process_show
     when :edit
       pre_process_edit
+    else
+      pre_process_show
     end
   end
   
